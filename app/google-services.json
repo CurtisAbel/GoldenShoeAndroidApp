@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "141041067331",
+    "project_id": "golden-shoe-android-app-dd197",
+    "storage_bucket": "golden-shoe-android-app-dd197.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141041067331:android:402a16f686595a2cbf3bf6",
+        "android_client_info": {
+          "package_name": "com.project.goldenshoe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "141041067331-kios83mkpuh24at36t94n7hodvag6fag.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.project.goldenshoe",
+            "certificate_hash": "f08e18f0c136001af2b909e98ddd9bce71928ef2"
+          }
+        },
+        {
+          "client_id": "141041067331-55fp5v75e32kcfk5k9mi0250gu1oqo0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDS20CDDoYRvdzE429wyQGQW6CyyRdI1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "141041067331-55fp5v75e32kcfk5k9mi0250gu1oqo0s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

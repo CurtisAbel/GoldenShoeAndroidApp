@@ -6,73 +6,55 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.project.goldenshoe.R;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private DrawerLayout drawer;
+public class HomeActivity extends AppCompatActivity {
+
+    NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        //setting nav to name. Changes the name to fragment we are currently in
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment );
+        NavigationUI.setupActionBarWithNavController(this, navController);
 
     }
 
+    //activates back button in action bar from fragment 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.nav_home:
-                Intent home = new Intent(this,HomeActivity.class);
-                this.startActivity(home);
-                        break;
+    public boolean onSupportNavigateUp() {
+        navController.navigateUp();
+        return super.onSupportNavigateUp();
+    }
 
-            case R.id.nav_cart:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CartFragment()).commit();
-                break;
-
-            case R.id.nav_about_us:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AboutUsFragment()).commit();
-                break;
-
-            case R.id.nav_logout:
-                Intent logout = new Intent(this, MainActivity.class);
-                this.startActivity(logout);
-                break;
-
-
-        }
-
-        drawer.closeDrawer(GravityCompat.START);
+    //displays cart in actionBar of app
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
         return true;
     }
 
+    /**
+     * if a item is clicked, the app will go to that fragment e.g.
+     * if the cart icon is clicked, the app will display the cart fragment
+     */
+
     @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+       return NavigationUI.onNavDestinationSelected(item, navController) ||
+        super.onOptionsItemSelected(item);
     }
-
-
 }

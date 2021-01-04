@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +22,9 @@ import com.project.goldenshoe.viewmodels.ShopViewModel;
 import java.util.List;
 
 public class ProductsFragment extends Fragment implements ProductListAdapter.ProductInterface {
-FragmentProductsBinding fragmentProductsBinding;
-private ProductListAdapter productListAdapter;
-private ShopViewModel shopViewModel;
-
+    FragmentProductsBinding fragmentProductsBinding;
+    private ProductListAdapter productListAdapter;
+    private ShopViewModel shopViewModel;
 
 
     public ProductsFragment() {
@@ -36,7 +36,7 @@ private ShopViewModel shopViewModel;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        fragmentProductsBinding = fragmentProductsBinding.inflate(inflater,container,false);
+        fragmentProductsBinding = fragmentProductsBinding.inflate(inflater, container, false);
         return fragmentProductsBinding.getRoot();
     }
 
@@ -44,11 +44,19 @@ private ShopViewModel shopViewModel;
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        productListAdapter= new ProductListAdapter();
+        productListAdapter = new ProductListAdapter();
         fragmentProductsBinding.productsRecyclerView.setAdapter(productListAdapter);
 
+        //Create a grid view, each product is placed within its own space
+        fragmentProductsBinding.productsRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext()
+                , DividerItemDecoration.VERTICAL));
+
+        fragmentProductsBinding.productsRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext()
+                , DividerItemDecoration.HORIZONTAL));
+
+
         //displays list of products on fragment
-        shopViewModel = new  ViewModelProvider(requireActivity()).get(ShopViewModel.class);
+        shopViewModel = new ViewModelProvider(requireActivity()).get(ShopViewModel.class);
         shopViewModel.getProducts().observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
             @Override
             public void onChanged(List<Product> products) {

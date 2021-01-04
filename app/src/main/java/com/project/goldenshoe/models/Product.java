@@ -17,13 +17,15 @@ public class Product {
     private double price;
     private boolean isInStock;
     private String imageUrl;
+    private String description;
 
-    public Product(String id, String name, double price, boolean isInStock, String imageUrl) {
+    public Product(String id, String name, double price, boolean isInStock, String imageUrl, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.isInStock = isInStock;
         this.imageUrl = imageUrl;
+        this.description = description;
     }
 
     public String getId() {
@@ -66,6 +68,14 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -74,6 +84,7 @@ public class Product {
                 ", price=" + price +
                 ", isInStock=" + isInStock +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 
@@ -86,9 +97,10 @@ public class Product {
                 isInStock() == product.isInStock() &&
                 getId().equals(product.getId()) &&
                 getName().equals(product.getName()) &&
-                getImageUrl().equals(product.getImageUrl());
+                getImageUrl().equals(product.getImageUrl()) &&
+                getDescription().equals(product.getDescription());
     }
-
+    
 
     public static DiffUtil.ItemCallback<Product> itemCallback = new DiffUtil.ItemCallback<Product>() {
         @Override
@@ -104,6 +116,8 @@ public class Product {
 
     /**
      * Method that loads image from URL
+     *
+     * adapts to the image that is called, then displays that image
      */
     @BindingAdapter("android:productImage")
     public static void loadImage(ImageView imageView, String imageUrl){

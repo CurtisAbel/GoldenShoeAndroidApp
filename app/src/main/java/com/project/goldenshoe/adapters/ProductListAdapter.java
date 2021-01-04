@@ -13,8 +13,12 @@ import com.project.goldenshoe.databinding.ShopRowBinding;
 import com.project.goldenshoe.models.Product;
 
 public class ProductListAdapter extends ListAdapter<Product, ProductListAdapter.ProductViewHolder> {
-    public ProductListAdapter() {
+
+    ProductInterface productInterface;
+    public ProductListAdapter(ProductInterface productInterface) {
         super(Product.itemCallback);
+
+        this.productInterface = productInterface;
     }
 
     @NonNull
@@ -23,6 +27,7 @@ public class ProductListAdapter extends ListAdapter<Product, ProductListAdapter.
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         ShopRowBinding shopRowBinding = ShopRowBinding.inflate(layoutInflater,parent,false);
+        shopRowBinding.setProductInterface(productInterface); //setting interface within shop_row
         return new ProductViewHolder(shopRowBinding);
 
     }
@@ -41,6 +46,7 @@ public class ProductListAdapter extends ListAdapter<Product, ProductListAdapter.
 
             super(binding.getRoot());
             this.shopRowBinding = binding;
+
         }
     }
 

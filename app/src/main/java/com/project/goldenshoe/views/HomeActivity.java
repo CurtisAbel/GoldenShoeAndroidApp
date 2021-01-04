@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    //activates back button in action bar from fragment 
+    //activates back button in action bar from fragment
     @Override
     public boolean onSupportNavigateUp() {
         navController.navigateUp();

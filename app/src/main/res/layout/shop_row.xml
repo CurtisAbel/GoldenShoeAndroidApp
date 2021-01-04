@@ -6,13 +6,20 @@
         <variable
             name="product"
             type="com.project.goldenshoe.models.Product" />
+        
+        <variable
+            name="productInterface"
+            type="com.project.goldenshoe.adapters.ProductListAdapter.ProductInterface" />
 
     </data>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:onClick="@{() -> productInterface.onItemClick(product)}"
+        >
 
         <ImageView
             android:id="@+id/productImageView"

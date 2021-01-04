@@ -7,8 +7,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +25,14 @@ import com.project.goldenshoe.viewmodels.ShopViewModel;
 import java.util.List;
 
 public class ProductsFragment extends Fragment implements ProductListAdapter.ProductInterface {
+
+
+//creating class variables
+    private static final String TAG = "ProductsFragment";
     FragmentProductsBinding fragmentProductsBinding;
     private ProductListAdapter productListAdapter;
     private ShopViewModel shopViewModel;
+    private NavController navController;
 
 
     public ProductsFragment() {
@@ -44,7 +52,8 @@ public class ProductsFragment extends Fragment implements ProductListAdapter.Pro
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        productListAdapter = new ProductListAdapter();
+
+        productListAdapter = new ProductListAdapter(this);
         fragmentProductsBinding.productsRecyclerView.setAdapter(productListAdapter);
 
         //Create a grid view, each product is placed within its own space
@@ -63,6 +72,9 @@ public class ProductsFragment extends Fragment implements ProductListAdapter.Pro
                 productListAdapter.submitList(products);
             }
         });
+
+        //navigating over to product details fragment when product is clicked
+        navController = Navigation.findNavController(view);
     }
 
     @Override
@@ -70,8 +82,19 @@ public class ProductsFragment extends Fragment implements ProductListAdapter.Pro
 
     }
 
+
+    /**
+     * Method brings user to the  products details when clicked
+     * @param product
+     */
     @Override
     public void onItemClick(Product product) {
+
+        //test to check if logcat receive a response when an image is clicked on
+        Log.d(TAG, "onItemClick: " + product.toString());
+
+        shopViewModel.setProduct(product);
+        navController.navigate(R.id.action_productsFragment_to_productsDetailFragment); //navigating over to the product's details
 
     }
 }

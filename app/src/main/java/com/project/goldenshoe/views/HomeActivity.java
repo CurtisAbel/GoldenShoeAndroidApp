@@ -1,4 +1,4 @@
-package com.project.goldenshoe;
+package com.project.goldenshoe.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.project.goldenshoe.R;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -52,7 +53,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_logout:
-                Intent logout = new Intent(this,MainActivity.class);
+                Intent logout = new Intent(this, MainActivity.class);
                 this.startActivity(logout);
                 break;
 

@@ -1,4 +1,4 @@
-package com.project.goldenshoe;
+package com.project.goldenshoe.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.project.goldenshoe.R;
 
 public class MainActivity extends AppCompatActivity {
 

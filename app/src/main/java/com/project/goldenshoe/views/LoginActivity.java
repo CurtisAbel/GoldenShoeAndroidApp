@@ -1,4 +1,4 @@
-package com.project.goldenshoe;
+package com.project.goldenshoe.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.method.HideReturnsTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.goldenshoe.Model.Users;
-import com.project.goldenshoe.prevalent.Prevalent;
+import com.project.goldenshoe.R;
 
 
 public class LoginActivity extends AppCompatActivity {

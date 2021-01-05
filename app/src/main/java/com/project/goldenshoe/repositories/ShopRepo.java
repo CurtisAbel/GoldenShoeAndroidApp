@@ -23,7 +23,7 @@ public class ShopRepo {
         return mutableProductList;
     }
 
-    //getting list of products
+    //creating new live data object products and adding it to list
     private void loadProducts() {
 
 

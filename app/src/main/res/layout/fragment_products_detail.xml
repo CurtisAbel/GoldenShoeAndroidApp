@@ -92,9 +92,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="@{shopViewModel.product.inStock}"
+                android:textColor="@{shopViewModel.product.inStock ? @android:color/holo_blue_light : @android:color/holo_red_light}"
                 android:text="Add to cart"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                android:textColor="@{shopViewModel.product.inStock ? @android:color/holo_blue_light : @android:color/holo_red_light}"
+                android:onClick="@{() -> shopViewModel.addItemToCart(shopViewModel.product)}"
+
 
                 />
 

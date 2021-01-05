@@ -27,7 +27,7 @@ import java.util.List;
 public class ProductsFragment extends Fragment implements ProductListAdapter.ProductInterface {
 
 
-//creating class variables
+    //creating class variables
     private static final String TAG = "ProductsFragment";
     FragmentProductsBinding fragmentProductsBinding;
     private ProductListAdapter productListAdapter;
@@ -77,24 +77,29 @@ public class ProductsFragment extends Fragment implements ProductListAdapter.Pro
         navController = Navigation.findNavController(view);
     }
 
+    /**
+     * add product to cart when add to cart is clicked
+     *
+     * @param product
+     */
     @Override
     public void addItem(Product product) {
+
+        boolean isAdded = shopViewModel.addItemToCart(product);
+        Log.d(TAG, "addItem: " + product.getName() + isAdded);
+
 
     }
 
 
     /**
-     * Method brings user to the  products details when clicked
+     * brings user to the  products details when clicked
+     *
      * @param product
      */
     @Override
     public void onItemClick(Product product) {
-
-        //test to check if logcat receive a response when an image is clicked on
-        Log.d(TAG, "onItemClick: " + product.toString());
-
         shopViewModel.setProduct(product);
         navController.navigate(R.id.action_productsFragment_to_productsDetailFragment); //navigating over to the product's details
-
     }
 }

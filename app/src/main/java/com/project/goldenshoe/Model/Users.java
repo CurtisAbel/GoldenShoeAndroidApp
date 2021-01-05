@@ -1,5 +1,10 @@
 package com.project.goldenshoe.Model;
 
+/**
+ * Users object class
+ * helps with the process of creating and adding a user object to firebase
+ *
+ */
 public class Users {
     private String password,phone,username;
 

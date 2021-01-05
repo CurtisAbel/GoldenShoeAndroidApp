@@ -1,5 +1,11 @@
 package com.project.goldenshoe.models;
 
+import android.widget.Spinner;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.DiffUtil;
+
 import java.util.Objects;
 
 public class CartItem {
@@ -44,6 +50,34 @@ public class CartItem {
         return getQuantity() == cartItem.getQuantity() &&
                 getProduct().equals(cartItem.getProduct());
     }
+
+    /**
+     * retrieving the value within quantity drop down menu
+     * helps with checking the amount of one item a user would like to purchase
+     */
+    @BindingAdapter("android:setVal")
+    public static void getSelectedSpinnerValue(Spinner spinner, int quantity){
+        spinner.setSelection(quantity-1, true);
+
+
+
+
+    }
+
+
+    public static DiffUtil.ItemCallback<CartItem> itemCallback = new DiffUtil.ItemCallback<CartItem>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull CartItem oldItem, @NonNull CartItem newItem) {
+            //if product are the same it will return true
+            //helps when retrieving the right item to display on the cart
+            return oldItem.getProduct().equals(newItem.getProduct());
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull CartItem oldItem, @NonNull CartItem newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 
 
 }

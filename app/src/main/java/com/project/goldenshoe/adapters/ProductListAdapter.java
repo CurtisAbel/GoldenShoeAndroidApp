@@ -36,6 +36,7 @@ public class ProductListAdapter extends ListAdapter<Product, ProductListAdapter.
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = getItem(position);
         holder.shopRowBinding.setProduct(product);
+        holder.shopRowBinding.executePendingBindings();
 
     }
 

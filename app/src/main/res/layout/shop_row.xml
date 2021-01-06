@@ -56,6 +56,8 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             android:textColor="@{product.inStock ? @android:color/holo_green_light : @android:color/holo_red_light}"/>
 
+
+
         <Button
             android:id="@+id/addToCartButtom"
             android:layout_width="wrap_content"

@@ -62,6 +62,31 @@
             android:setVal="@{cartItem.quantity}"
             />
 
+
+        <TextView
+            android:id="@+id/shoe_size_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Size"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            />
+
+        <Spinner
+            android:id="@+id/shoe_size_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            app:layout_constraintBottom_toBottomOf="@+id/shoe_size_text"
+            app:layout_constraintStart_toEndOf="@+id/shoe_size_text"
+            app:layout_constraintTop_toTopOf="@+id/shoe_size_text"
+            android:entries="@array/shoe_size_string_array"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:setVal="@{cartItem.size}"/>
+
+
         <ImageButton
             android:id="@+id/deleteProductButton"
             android:layout_width="wrap_content"

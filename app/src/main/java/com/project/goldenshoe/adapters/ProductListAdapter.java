@@ -27,11 +27,16 @@ public class ProductListAdapter extends ListAdapter<Product, ProductListAdapter.
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         ShopRowBinding shopRowBinding = ShopRowBinding.inflate(layoutInflater,parent,false);
-        shopRowBinding.setProductInterface(productInterface); //setting interface within shop_row
+        shopRowBinding.setProductInterface(productInterface); //displaying interface within shop_row
         return new ProductViewHolder(shopRowBinding);
 
     }
 
+    /**
+     * sets up all values of a product in view holder
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = getItem(position);

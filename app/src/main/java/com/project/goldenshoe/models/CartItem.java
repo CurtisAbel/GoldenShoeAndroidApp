@@ -12,6 +12,7 @@ public class CartItem {
     //creating variables of items that should be in cart
     private Product product;
     private int quantity;
+    private int size;
 
     public CartItem(Product product, int quantity) {
         this.product = product;
@@ -34,11 +35,20 @@ public class CartItem {
         this.quantity = quantity;
     }
 
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     @Override
     public String toString() {
         return "CartItem{" +
                 "product=" + product +
                 ", quantity=" + quantity +
+                ", size=" + size +
                 '}';
     }
 
@@ -48,8 +58,11 @@ public class CartItem {
         if (o == null || getClass() != o.getClass()) return false;
         CartItem cartItem = (CartItem) o;
         return getQuantity() == cartItem.getQuantity() &&
+                getSize() == cartItem.getSize() &&
                 getProduct().equals(cartItem.getProduct());
     }
+
+
 
     /**
      * retrieving the value within quantity drop down menu
@@ -60,8 +73,12 @@ public class CartItem {
         spinner.setSelection(quantity-1, true);
 
 
+    }
 
+    @BindingAdapter("android:setShoeSize")
+    public static void getSelectedShoeSizeValue(Spinner spinner, int size){
 
+        spinner.setSelection(size-1, true);
     }
 
 

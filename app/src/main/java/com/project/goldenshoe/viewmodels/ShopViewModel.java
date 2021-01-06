@@ -72,5 +72,15 @@ public class ShopViewModel extends ViewModel {
 
     }
 
+    /**
+     * method that return the item that need to be removed from cart
+     * @param cartItem
+     */
+    public void removeItemFromCart(CartItem cartItem){
+        cartRepo.removeItemFromCart(cartItem);
+
+
+    }
+
 
 }

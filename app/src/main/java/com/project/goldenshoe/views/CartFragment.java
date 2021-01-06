@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import com.project.goldenshoe.viewmodels.ShopViewModel;
 
 import java.util.List;
 
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements CartListAdapter.CartInterface {
     private static final String TAG = "CartFragment";
     ShopViewModel shopViewModel;
     FragmentCartBinding fragmentCartBinding;
@@ -44,7 +45,8 @@ public class CartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        CartListAdapter cartListAdapter = new CartListAdapter();
+        //separating the items in cart, responsible for how the items will be displayed in the cart
+        final CartListAdapter cartListAdapter = new CartListAdapter(this);
         fragmentCartBinding.cartRecyclerView.setAdapter(cartListAdapter);
         fragmentCartBinding.cartRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),
                 DividerItemDecoration.VERTICAL));
@@ -52,13 +54,17 @@ public class CartFragment extends Fragment {
 
         //displaying items in recycler View of cart fragment
         shopViewModel = new ViewModelProvider(requireActivity()).get(ShopViewModel.class);
-        shopViewModel.getCart().observe(getViewLifecycleOwner(), new Observer<List<CartItem>>() {
-            @Override
-            public void onChanged(List<CartItem> cartItems) {
+        shopViewModel.getCart().observe(getViewLifecycleOwner(), cartItems -> cartListAdapter.submitList(cartItems));
+    }
 
-                cartListAdapter.submitList(cartItems);
+    /**
+     * deleting item from cart
+     * @param cartItem
+     */
+    @Override
+    public void deleteItem(CartItem cartItem) {
+        shopViewModel.removeItemFromCart(cartItem);
 
-            }
-        });
+
     }
 }

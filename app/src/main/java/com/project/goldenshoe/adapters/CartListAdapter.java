@@ -14,10 +14,12 @@ import com.project.goldenshoe.models.CartItem;
 
 public class CartListAdapter extends ListAdapter<CartItem, CartListAdapter.CartVH> {
 
+private CartInterface cartInterface;
 
-    public CartListAdapter() {
+    public CartListAdapter(CartInterface cartInterface) {
 
         super(CartItem.itemCallback);
+        this.cartInterface=cartInterface;
     }
 
     @NonNull
@@ -41,6 +43,7 @@ public class CartListAdapter extends ListAdapter<CartItem, CartListAdapter.CartV
     /**
      * using data binding to use live data on what is called
      * e.g.if an item is added to cart, this item will be displayed on cart recycler view
+     * or delete a live item when the delete button is clicked
      */
 
     class CartVH extends RecyclerView.ViewHolder{
@@ -50,7 +53,22 @@ public class CartListAdapter extends ListAdapter<CartItem, CartListAdapter.CartV
         public CartVH(@NonNull CartRowBinding cartRowBinding) {
             super(cartRowBinding.getRoot());
             this.cartRowBinding=cartRowBinding;
+
+            cartRowBinding.deleteProductButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    cartInterface.deleteItem(getItem(getAdapterPosition()));
+                }
+            });
         }
+    }
+    public interface CartInterface{
+        void deleteItem(CartItem cartItem);
+
+
+
+
+
     }
 
 }

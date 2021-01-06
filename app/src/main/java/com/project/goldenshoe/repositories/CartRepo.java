@@ -86,7 +86,7 @@ public class CartRepo {
         if(mutableCart.getValue()==null){
             return;
         }
-        List<CartItem> cartItemList = new ArrayList<>();
+        List<CartItem> cartItemList = new ArrayList<>(mutableCart.getValue());
 
         cartItemList.remove(cartItem);
         mutableCart.setValue(cartItemList);

@@ -54,21 +54,11 @@ private CartInterface cartInterface;
             super(cartRowBinding.getRoot());
             this.cartRowBinding=cartRowBinding;
 
-            cartRowBinding.deleteProductButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    cartInterface.deleteItem(getItem(getAdapterPosition()));
-                }
-            });
+            cartRowBinding.deleteProductButton.setOnClickListener(v -> cartInterface.deleteItem(getItem(getAdapterPosition())));
         }
     }
     public interface CartInterface{
         void deleteItem(CartItem cartItem);
-
-
-
-
-
     }
 
 }

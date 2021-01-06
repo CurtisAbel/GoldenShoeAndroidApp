@@ -52,9 +52,14 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
                 DividerItemDecoration.VERTICAL));
 
 
-        //displaying items in recycler View of cart fragment
+        //manipulating items in recycler View of cart fragment e.g. display or remove item
         shopViewModel = new ViewModelProvider(requireActivity()).get(ShopViewModel.class);
-        shopViewModel.getCart().observe(getViewLifecycleOwner(), cartItems -> cartListAdapter.submitList(cartItems));
+        shopViewModel.getCart().observe(getViewLifecycleOwner(), new Observer<List<CartItem>>() {
+            @Override
+            public void onChanged(List<CartItem> cartItems) {
+                cartListAdapter.submitList(cartItems);
+            }
+        });
     }
 
     /**

@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.project.goldenshoe.R;
 import com.project.goldenshoe.adapters.ProductListAdapter;
 import com.project.goldenshoe.databinding.FragmentProductsBinding;
@@ -86,7 +87,19 @@ public class ProductsFragment extends Fragment implements ProductListAdapter.Pro
     public void addItem(Product product) {
 
         boolean isAdded = shopViewModel.addItemToCart(product);
-        Log.d(TAG, "addItem: " + product.getName() + isAdded);
+        if(isAdded){
+            Snackbar.make(requireView(), product.getName() + " added to cart.",
+                    Snackbar.LENGTH_LONG).setAction("Checkout", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    navController.navigate(R.id.action_productsFragment_to_cartFragment);
+                }
+            })
+                    .show();
+        }else{
+            Snackbar.make(requireView(),   " Max amountb  has been added to cart.",
+                    Snackbar.LENGTH_LONG).show();
+        }
 
 
     }

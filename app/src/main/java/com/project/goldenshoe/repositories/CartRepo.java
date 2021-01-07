@@ -11,10 +11,16 @@ import com.project.goldenshoe.views.ProductsFragment;
 
 import java.util.*;
 
+/**
+ * functionality of cart
+ * delete, add, calculate total price and change quantity to cart
+ */
 public class CartRepo {
 
     //observing mutable cart to get the list of items that have been added to cart
     private MutableLiveData<List<CartItem>> mutableCart = new MutableLiveData<>();
+
+    private MutableLiveData<Double> mutableTotalPrice = new MutableLiveData<>();
 
     /**
      * get items in cart
@@ -36,7 +42,7 @@ public class CartRepo {
     public void initCart() {
 
         mutableCart.setValue(new ArrayList<CartItem>());
-
+        calculateCartTotal();
     }
 
     /**
@@ -66,6 +72,7 @@ public class CartRepo {
 //                cartItemList.set(index, cartItem);
 //
 //                mutableCart.setValue(cartItemList);
+//                calculateCartTotal();
 //
 //                return true;
 //
@@ -76,20 +83,21 @@ public class CartRepo {
         CartItem cartItem = new CartItem(product, 1);
         cartItemList.add(cartItem);
         mutableCart.setValue(cartItemList);
+        calculateCartTotal();
         return true;
     }
 
     /**
      * removing item from cart
      */
-    public void removeItemFromCart(CartItem cartItem){
-        if(mutableCart.getValue()==null){
+    public void removeItemFromCart(CartItem cartItem) {
+        if (mutableCart.getValue() == null) {
             return;
         }
         List<CartItem> cartItemList = new ArrayList<>(mutableCart.getValue());
         cartItemList.remove(cartItem);
         mutableCart.setValue(cartItemList);
-
+        calculateCartTotal();
 
 
     }
@@ -98,11 +106,12 @@ public class CartRepo {
      * value of quantity spinner being changed
      * if there is no value just return
      * get current list of items in cart
+     *
      * @param cartItem
      * @param quantity
      */
-    public void changeQuantity(CartItem cartItem, int quantity){
-        if(mutableCart.getValue()==null) return;
+    public void changeQuantity(CartItem cartItem, int quantity) {
+        if (mutableCart.getValue() == null) return;
 
 
         //get current list of items in cart
@@ -110,13 +119,47 @@ public class CartRepo {
 
         //creating a updated item and updating it in list
         CartItem updatedItem = new CartItem(cartItem.getProduct(), quantity);
-        cartItemList.set(cartItemList.indexOf(cartItem),updatedItem);
+        cartItemList.set(cartItemList.indexOf(cartItem), updatedItem);
 
         mutableCart.setValue(cartItemList);
-
-
+        calculateCartTotal();
 
 
     }
 
+    /**
+     * calculates total value of cart
+     */
+
+    private void calculateCartTotal() {
+
+        if (mutableCart.getValue() == null) return;
+
+        double total = 0.0;
+        List<CartItem> cartItemList = mutableCart.getValue();
+        //iterating through list to check the amount of product, their price and quantity and add them together
+        for (CartItem cartItem : cartItemList) {
+            total += cartItem.getProduct().getPrice() * cartItem.getQuantity();
+        }
+        //total price of cart
+        //observing total price with getTotalPrice method, which notifies when price has been updated
+        mutableTotalPrice.setValue(total);
+    }
+
+
+    /**
+     * getting live data of total price in cart
+     * notifies updated price of the cart using live data
+     *
+     * @return
+     */
+    public LiveData<Double> getTotalPrice() {
+        if (mutableTotalPrice.getValue() == null) {
+            mutableTotalPrice.setValue(0.0);
+
+        }
+        return mutableTotalPrice;
+
+
+    }
 }

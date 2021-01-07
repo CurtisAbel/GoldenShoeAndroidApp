@@ -92,5 +92,15 @@ public class ShopViewModel extends ViewModel {
 
     }
 
+    /**
+     * returning live data of the price of product to get total price
+     * observed within cart fragement
+     */
+    public LiveData<Double> getTotalPrice(){
+
+
+        return cartRepo.getTotalPrice();
+    }
+
 
 }

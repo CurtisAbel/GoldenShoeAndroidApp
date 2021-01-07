@@ -60,6 +60,16 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
                 cartListAdapter.submitList(cartItems);
             }
         });
+
+        //setting total price in cart fragment to change to the price of the total price of items in cart
+        shopViewModel.getTotalPrice().observe(getViewLifecycleOwner(), new Observer<Double>() {
+            @Override
+            public void onChanged(Double aDouble) {
+                //setting total price in cart fragment change to
+                fragmentCartBinding.orderTotalTextView.setText("Total: £ " + aDouble.toString());
+
+            }
+        });
     }
 
     /**

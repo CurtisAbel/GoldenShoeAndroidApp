@@ -23,6 +23,7 @@ import com.project.goldenshoe.R;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //creating login variables
     private EditText inputUsername, inputPassword;
     private Button loginButton;
     private ProgressDialog loadingBar;
@@ -36,11 +37,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
+        //assigning variables to button and editTexts in login layout
         loginButton = (Button) findViewById(R.id.login_btn);
         inputPassword = (EditText) findViewById(R.id.login_password_input);
         inputUsername = (EditText) findViewById(R.id.login_username_input);
         loadingBar = new ProgressDialog(this);
-
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -51,11 +52,19 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * login logic
+     *
+     * if user forgets to write in username or password, the application will tell the user to write in missing credentials
+     *
+     * uses the AllowAccessToAccount method to check if users credentials are correct
+     */
     private void loginUser() {
 
         String name = inputUsername.getText().toString();
         String password = inputPassword.getText().toString();
 
+        //checking if user has written in username and password
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "Please write your name...", Toast.LENGTH_SHORT).show();
 
@@ -64,9 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Please write your password...", Toast.LENGTH_SHORT).show();
 
 
-        }
-
-        else{
+        } else {
             loadingBar.setTitle("Login Account");
             loadingBar.setMessage("Please wait, logging you in...");
             loadingBar.setCanceledOnTouchOutside(false);
@@ -75,7 +82,19 @@ public class LoginActivity extends AppCompatActivity {
             allowAccessToAccount(name, password);
         }
     }
-    private void allowAccessToAccount(final String name, final String password){
+
+    /**
+     * passes in username and password from login user.
+     *
+     * checks if users credentials match inside the database.
+     *
+     * if they match, the user can access the application
+     * else user will be denied
+     *
+     * @param name
+     * @param password
+     */
+    private void allowAccessToAccount(final String name, final String password) {
         final DatabaseReference rootRef;
 
         rootRef = FirebaseDatabase.getInstance().getReference();
@@ -83,13 +102,13 @@ public class LoginActivity extends AppCompatActivity {
         rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child(parentDbName).child(name).exists()){
+                if (snapshot.child(parentDbName).child(name).exists()) {
 
                     Users usersData = snapshot.child(parentDbName).child(name).getValue(Users.class);
-
-                    if(usersData.getUsername().equals(name)){
-                        if(usersData.getPassword().equals(password)){
-                            Toast.makeText(LoginActivity.this,"You have successfully logged in...", Toast.LENGTH_SHORT).show();
+                   //checking if users username and password matches the credentials in firebase
+                    if (usersData.getUsername().equals(name)) {
+                        if (usersData.getPassword().equals(password)) {
+                            Toast.makeText(LoginActivity.this, "You have successfully logged in...", Toast.LENGTH_SHORT).show();
                             loadingBar.dismiss();
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
@@ -98,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
 
-                }else{
+                } else {
                     Toast.makeText(LoginActivity.this, "Account with this name:  " + name + " does not exists ", Toast.LENGTH_LONG).show();
                     loadingBar.dismiss();
                     Toast.makeText(LoginActivity.this, "You need to create a new account", Toast.LENGTH_LONG).show();

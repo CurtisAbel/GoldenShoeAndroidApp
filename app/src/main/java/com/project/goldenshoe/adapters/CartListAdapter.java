@@ -42,7 +42,7 @@ private CartInterface cartInterface;
     }
 
     /**
-     * using data binding to use live data on what is called
+     * using data binding to use live data and display it
      * e.g.if an item is added to cart, this item will be displayed on cart recycler view
      * or delete a live item when the delete button is clicked
      */

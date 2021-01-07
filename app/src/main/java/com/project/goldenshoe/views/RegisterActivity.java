@@ -26,6 +26,7 @@ import java.util.HashMap;
 public class RegisterActivity extends AppCompatActivity {
 
 
+    //creating register variables
     private Button createAccountButton;
     private EditText inputName, inputPhoneNumber, inputPassword;
     private ProgressDialog loadingBar;
@@ -36,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
 
+        //assigning variables to buttons and EditTexts in Register layout
         createAccountButton = (Button) findViewById(R.id.register_btn);
         inputName = (EditText) findViewById(R.id.register_username_input);
         inputPhoneNumber = (EditText) findViewById(R.id.register_phone_number_input);
@@ -58,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
         String phoneNumber = inputPhoneNumber.getText().toString();
         String password = inputPassword.getText().toString();
 
+        //register user logic
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "Please write your name...", Toast.LENGTH_SHORT).show();
 
@@ -77,13 +80,19 @@ public class RegisterActivity extends AppCompatActivity {
             loadingBar.setCanceledOnTouchOutside(false);
             loadingBar.show();
 
-            ValidatePhoneNumber(name, phoneNumber, password);
+            ValidateUserName(name, phoneNumber, password);
         }
 
     }
 
-    private void ValidatePhoneNumber(String name, String phoneNumber, String password) {
-
+    /**
+     * method to check if user's account can be created
+     * checks database to see if there are similar account to the one being created
+     * @param name
+     * @param phoneNumber
+     * @param password
+     */
+    private void ValidateUserName(String name, String phoneNumber, String password) {
 
         final DatabaseReference rootRef;
 
@@ -93,6 +102,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!(snapshot.child("Users").child(name).exists())) {
+                    //putting authentication within firebase database
                     HashMap<String, Object>userDataMap = new HashMap<>();
                     userDataMap.put("username", name);
                     userDataMap.put("password", password);

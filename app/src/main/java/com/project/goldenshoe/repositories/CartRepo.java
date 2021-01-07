@@ -37,10 +37,11 @@ public class CartRepo {
     }
 
     /**
-     * initialising cart
+     * initialising new empty cart
      */
     public void initCart() {
 
+        //creating a new empty cart
         mutableCart.setValue(new ArrayList<CartItem>());
         calculateCartTotal();
     }

@@ -7,6 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
 import android.util.Log;
@@ -23,9 +25,11 @@ import com.project.goldenshoe.viewmodels.ShopViewModel;
 import java.util.List;
 
 public class CartFragment extends Fragment implements CartListAdapter.CartInterface {
-    private static final String TAG = "CartFragment";
+
+    //setting up cart variables
     ShopViewModel shopViewModel;
     FragmentCartBinding fragmentCartBinding;
+    NavController navController;
 
 
     public CartFragment() {
@@ -45,6 +49,8 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        navController = Navigation.findNavController(view);
+
         //separating the items in cart, responsible for how the items will be displayed in the cart
         final CartListAdapter cartListAdapter = new CartListAdapter(this);
         fragmentCartBinding.cartRecyclerView.setAdapter(cartListAdapter);
@@ -58,6 +64,10 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
             @Override
             public void onChanged(List<CartItem> cartItems) {
                 cartListAdapter.submitList(cartItems);
+
+                //if there are no items in the cart, the place order button is disabled
+                //only activated when an item is attack, hence size needs to be bigger than 0
+                fragmentCartBinding.placeOrderButton.setEnabled(cartItems.size()>0);
             }
         });
 
@@ -70,6 +80,15 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
 
             }
         });
+
+        //bringing user to another activity when place order button is clicked
+        fragmentCartBinding.placeOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_cartFragment_to_orderFragment);
+            }
+        });
+
     }
 
     /**

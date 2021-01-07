@@ -102,5 +102,14 @@ public class ShopViewModel extends ViewModel {
         return cartRepo.getTotalPrice();
     }
 
+    /**
+     * resetting cart when place order button has been placed
+     */
+    public  void resetCart(){
+        cartRepo.initCart();
+
+
+    }
+
 
 }

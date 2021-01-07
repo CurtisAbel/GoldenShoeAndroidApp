@@ -85,9 +85,9 @@ public class CartItem {
     public static DiffUtil.ItemCallback<CartItem> itemCallback = new DiffUtil.ItemCallback<CartItem>() {
         @Override
         public boolean areItemsTheSame(@NonNull CartItem oldItem, @NonNull CartItem newItem) {
-            //if product are the same it will return true
-            //helps when retrieving the right item to display on the cart
-            return oldItem.getProduct().equals(newItem.getProduct());
+            //if the quantity is the same, the recycler row will not be updated
+            //or else if the quantity is different, the recycler row will be updated
+            return oldItem.getQuantity() == newItem.getQuantity();
         }
 
         @Override

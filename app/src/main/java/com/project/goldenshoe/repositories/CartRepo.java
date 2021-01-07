@@ -51,27 +51,27 @@ public class CartRepo {
 
         //returns number of items currently in cart
         List<CartItem> cartItemList = new ArrayList<>(mutableCart.getValue());
-        for (CartItem cartItem : cartItemList) {
-            //checking to see if the product being added is identical with other products that have been added to the cart
-            if (cartItem.getProduct().getId().equals(product.getId())) {
-                if (cartItem.getQuantity() == 5) {
-                    //no more identical items can be added, as 5 in the max same items we can add
-                    return false;
-                }
-
-                //if max quantity has not been met, then increase quantity of similar item by 1
-                //return true, as item has successfully been added to the cart
-                int index = cartItemList.indexOf(cartItem);
-                cartItem.setQuantity(cartItem.getQuantity() + 1);
-                cartItemList.set(index, cartItem);
-
-                mutableCart.setValue(cartItemList);
-
-                return true;
-
-            }
-
-        }
+//        for (CartItem cartItem : cartItemList) {
+//            //checking to see if the product being added is identical with other products that have been added to the cart
+//            if (cartItem.getProduct().getId().equals(product.getId())) {
+//                if (cartItem.getQuantity() == 5) {
+//                    //no more identical items can be added, as 5 in the max same items we can add
+//                    return false;
+//                }
+//
+//                //if max quantity has not been met, then increase quantity of similar item by 1
+//                //return true, as item has successfully been added to the cart
+//                int index = cartItemList.indexOf(cartItem);
+//                cartItem.setQuantity(cartItem.getQuantity() + 1);
+//                cartItemList.set(index, cartItem);
+//
+//                mutableCart.setValue(cartItemList);
+//
+//                return true;
+//
+//            }
+//
+//        }
 
         CartItem cartItem = new CartItem(product, 1);
         cartItemList.add(cartItem);
@@ -87,9 +87,33 @@ public class CartRepo {
             return;
         }
         List<CartItem> cartItemList = new ArrayList<>(mutableCart.getValue());
-
         cartItemList.remove(cartItem);
         mutableCart.setValue(cartItemList);
+
+
+
+    }
+
+    /**
+     * value of quantity spinner being changed
+     * if there is no value just return
+     * get current list of items in cart
+     * @param cartItem
+     * @param quantity
+     */
+    public void changeQuantity(CartItem cartItem, int quantity){
+        if(mutableCart.getValue()==null) return;
+
+
+        //get current list of items in cart
+        List<CartItem> cartItemList = new ArrayList<>(mutableCart.getValue());
+
+        //creating a updated item and updating it in list
+        CartItem updatedItem = new CartItem(cartItem.getProduct(), quantity);
+        cartItemList.set(cartItemList.indexOf(cartItem),updatedItem);
+
+        mutableCart.setValue(cartItemList);
+
 
 
 

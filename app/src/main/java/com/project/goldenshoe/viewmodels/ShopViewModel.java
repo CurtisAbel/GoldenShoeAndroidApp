@@ -82,5 +82,15 @@ public class ShopViewModel extends ViewModel {
 
     }
 
+    /**
+     * method that return the quantity value that the item has been change to
+     */
+    public void changeQuantity(CartItem cartItem, int quantity){
+
+        cartRepo.changeQuantity(cartItem, quantity);
+
+
+    }
+
 
 }

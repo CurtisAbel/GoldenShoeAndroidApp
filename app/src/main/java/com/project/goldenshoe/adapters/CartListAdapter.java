@@ -3,6 +3,7 @@ package com.project.goldenshoe.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -54,11 +55,39 @@ private CartInterface cartInterface;
             super(cartRowBinding.getRoot());
             this.cartRowBinding=cartRowBinding;
 
+            //getting the position of which delete button was clicked
             cartRowBinding.deleteProductButton.setOnClickListener(v -> cartInterface.deleteItem(getItem(getAdapterPosition())));
+
+            //checking value within drop down menu of quantity spinner
+            cartRowBinding.quantitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    int quantity = position+1;
+
+                    if(quantity==getItem(getAdapterPosition()).getQuantity()){
+
+                        return;
+                    }
+
+                    //else if quantity selected is different from current quantity, change it
+                    cartInterface.changeQuantity(getItem(getAdapterPosition()), quantity);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
         }
     }
+
+    /**
+     * setting up interface for manipulating items in cart
+     * e.g. delete item, price change depending on quantity
+     */
     public interface CartInterface{
         void deleteItem(CartItem cartItem);
+        void changeQuantity(CartItem cartItem, int quantity );
     }
 
 }

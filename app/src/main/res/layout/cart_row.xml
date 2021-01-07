@@ -46,7 +46,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/productNameTextView"
-            app:layout_constraintTop_toBottomOf="@id/productImageView" />
+            app:layout_constraintTop_toBottomOf="@id/productNameTextView" />
 
         <Spinner
             android:id="@+id/quantitySpinner"

@@ -11,6 +11,8 @@ import com.project.goldenshoe.views.ProductsFragment;
 
 import java.util.*;
 
+import java.text.DecimalFormat;
+
 /**
  * functionality of cart
  * delete, add, calculate total price and change quantity to cart
@@ -51,35 +53,14 @@ public class CartRepo {
      */
     public boolean addItemToCart(Product product) {
 
+        //initialising empty cart
         if (mutableCart.getValue() == null) {
             initCart();
 
         }
 
-        //returns number of items currently in cart
+        //adding items to cart
         List<CartItem> cartItemList = new ArrayList<>(mutableCart.getValue());
-//        for (CartItem cartItem : cartItemList) {
-//            //checking to see if the product being added is identical with other products that have been added to the cart
-//            if (cartItem.getProduct().getId().equals(product.getId())) {
-//                if (cartItem.getQuantity() == 5) {
-//                    //no more identical items can be added, as 5 in the max same items we can add
-//                    return false;
-//                }
-//
-//                //if max quantity has not been met, then increase quantity of similar item by 1
-//                //return true, as item has successfully been added to the cart
-//                int index = cartItemList.indexOf(cartItem);
-//                cartItem.setQuantity(cartItem.getQuantity() + 1);
-//                cartItemList.set(index, cartItem);
-//
-//                mutableCart.setValue(cartItemList);
-//                calculateCartTotal();
-//
-//                return true;
-//
-//            }
-//
-//        }
 
         CartItem cartItem = new CartItem(product, 1);
         cartItemList.add(cartItem);
@@ -95,6 +76,7 @@ public class CartRepo {
         if (mutableCart.getValue() == null) {
             return;
         }
+        //removing item from cart
         List<CartItem> cartItemList = new ArrayList<>(mutableCart.getValue());
         cartItemList.remove(cartItem);
         mutableCart.setValue(cartItemList);
@@ -144,7 +126,9 @@ public class CartRepo {
         }
         //total price of cart
         //observing total price with getTotalPrice method, which notifies when price has been updated
-        mutableTotalPrice.setValue(total);
+        DecimalFormat decimalFormat = new DecimalFormat("###.##");
+
+        mutableTotalPrice.setValue(Double.valueOf(decimalFormat.format(total)));
     }
 
 

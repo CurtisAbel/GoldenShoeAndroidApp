@@ -103,7 +103,7 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
     }
 
     /**
-     * changes the price of an item if the quatity is changed
+     * changes the price of an item if the quantity is changed
      * e.g. if an item is worth 1 and we change the quantity to 2, the item will then be worth 2.
      * @param cartItem
      * @param quantity

@@ -7,9 +7,9 @@
         android:icon="@drawable/ic_baseline_shopping_cart_24"
         android:title="Cart"
         app:showAsAction="always"
-
-
+        app:actionLayout="@layout/cart_action_item"
         />
+
 
 
 </menu>

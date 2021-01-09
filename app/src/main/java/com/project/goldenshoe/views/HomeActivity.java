@@ -75,10 +75,12 @@ public class HomeActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
-    //displays cart and badge of number of items in cart in actionBar of app
+    //navigation buttons and functions
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //inflating cart and help icon on navigation
         getMenuInflater().inflate(R.menu.home_menu, menu);
+
 
 
         MenuItem menuItem = menu.findItem(R.id.cartFragment);

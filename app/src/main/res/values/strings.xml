@@ -8,7 +8,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string-array name ="quantity_string_array">
+    <string-array name="quantity_string_array">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -16,7 +16,7 @@
         <item>5</item>
     </string-array>
 
-    <string-array name ="shoe_size_string_array">
+    <string-array name="shoe_size_string_array">
         <item>(UK Size)</item>
         <item>2</item>
         <item>3</item>
@@ -30,9 +30,6 @@
         <item>11</item>
         <item>12</item>
     </string-array>
-
-
-
 
 
     <string name="menu_home">Home</string>

@@ -10,6 +10,12 @@
         app:actionLayout="@layout/cart_action_item"
         />
 
+    <item
+        android:id="@+id/helpFragment"
+        android:title="Help"
+        android:icon="@drawable/ic_baseline_help_24"
+        app:showAsAction="always"
+        />
 
 
 </menu>

@@ -94,7 +94,7 @@ public class ShopViewModel extends ViewModel {
 
     /**
      * returning live data of the price of product to get total price
-     * observed within cart fragement
+     * observed within cart fragment
      */
     public LiveData<Double> getTotalPrice(){
 

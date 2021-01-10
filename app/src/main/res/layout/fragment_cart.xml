@@ -23,6 +23,27 @@
             android:layout_width="match_parent"
             android:layout_height="16dp" />
 
+        <EditText
+            android:id="@+id/promotion_code_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="8dp"
+            android:background="@drawable/promotional_code_background"
+            android:hint="Enter Promotion Code"
+            android:textSize="16dp"
+            android:inputType="text"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+        <Button
+            android:id="@+id/apply_Promotion_Code_Button"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="8dp"
+            android:text="Apply"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
 
         <TextView
             android:id="@+id/orderTotalTextView"

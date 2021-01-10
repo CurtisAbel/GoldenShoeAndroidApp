@@ -15,6 +15,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.project.goldenshoe.R;
 import com.project.goldenshoe.adapters.CartListAdapter;
@@ -30,6 +33,8 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
     ShopViewModel shopViewModel;
     FragmentCartBinding fragmentCartBinding;
     NavController navController;
+    private EditText inputPromotionCode;
+    private Button applyPromotionCodeButton;
 
 
     public CartFragment() {
@@ -41,7 +46,7 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        fragmentCartBinding = FragmentCartBinding.inflate(inflater, container,false);
+        fragmentCartBinding = FragmentCartBinding.inflate(inflater, container, false);
         return fragmentCartBinding.getRoot();
     }
 
@@ -50,6 +55,8 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(view);
+        applyPromotionCodeButton = (Button) view.findViewById(R.id.apply_Promotion_Code_Button);
+        inputPromotionCode = (EditText) view.findViewById(R.id.promotion_code_edit_text);
 
         //separating the items in cart, responsible for how the items will be displayed in the cart
         final CartListAdapter cartListAdapter = new CartListAdapter(this);
@@ -65,9 +72,10 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
             public void onChanged(List<CartItem> cartItems) {
                 cartListAdapter.submitList(cartItems);
 
-                //if there are no items in the cart, the place order button is disabled
-                //only activated when an item is attack, hence size needs to be bigger than 0
-                fragmentCartBinding.placeOrderButton.setEnabled(cartItems.size()>0);
+                //if there are no items in the cart, button are disabled
+                //only activated when an item is added, hence size needs to be bigger than 0
+                fragmentCartBinding.placeOrderButton.setEnabled(cartItems.size() > 0);
+                fragmentCartBinding.applyPromotionCodeButton.setEnabled(cartItems.size() > 0);
             }
         });
 
@@ -76,7 +84,25 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
             @Override
             public void onChanged(Double aDouble) {
                 //setting total price in cart fragment change to
+
+
                 fragmentCartBinding.orderTotalTextView.setText("Total: £ " + aDouble.toString());
+
+                //applying discount
+                applyPromotionCodeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        double discountPrice = aDouble * 0.90;
+                        if(inputPromotionCode.getText().toString().equals("goldenshoe10")){
+                            fragmentCartBinding.orderTotalTextView.setText("Total: £ " + String.format("%.2f", discountPrice));
+                            Toast.makeText(getActivity(), "Promotion code applied successfully", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getActivity(), "Promotion code does not exist, please re-enter code", Toast.LENGTH_SHORT).show();
+                        }
+                        
+                    }
+                });
+
 
             }
         });
@@ -93,6 +119,7 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
 
     /**
      * deleting item from cart
+     *
      * @param cartItem
      */
     @Override
@@ -105,13 +132,18 @@ public class CartFragment extends Fragment implements CartListAdapter.CartInterf
     /**
      * changes the price of an item if the quantity is changed
      * e.g. if an item is worth 1 and we change the quantity to 2, the item will then be worth 2.
+     *
      * @param cartItem
      * @param quantity
      */
     @Override
     public void changeQuantity(CartItem cartItem, int quantity) {
 
-shopViewModel.changeQuantity(cartItem,quantity);
+        shopViewModel.changeQuantity(cartItem, quantity);
 
     }
+
+
 }
+
+

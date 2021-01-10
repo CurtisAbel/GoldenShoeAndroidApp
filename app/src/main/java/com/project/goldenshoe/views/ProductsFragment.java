@@ -97,7 +97,7 @@ public class ProductsFragment extends Fragment implements ProductListAdapter.Pro
             })
                     .show();
         }else{
-            Snackbar.make(requireView(),   " Max amountb  has been added to cart.",
+            Snackbar.make(requireView(),   " Max amount has been added to cart.",
                     Snackbar.LENGTH_LONG).show();
         }
 
